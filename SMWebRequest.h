@@ -83,6 +83,8 @@ typedef NSUInteger SMWebRequestEvents;
 - (void)start;
 - (void)cancel;
 - (void)setHTTPMethod:(NSString *)method;
+- (void)setHTTPBody:(NSMutableData *)data;
+- (void)setContentType:(NSString *)contentType;
 
 // register interest. does not retain target. action can take one or two arguments; 
 // first is the result object returned by the delegate, second is the context.

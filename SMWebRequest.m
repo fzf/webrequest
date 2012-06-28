@@ -107,6 +107,14 @@ NSString *const SMErrorResponseKey = @"response";
     [self.request setHTTPMethod:method];
 }
 
+- (void)setHTTPBody:(NSMutableData *)bodyData {
+    [self.request setHTTPBody:bodyData];
+}
+
+- (void)setContentType:(NSString *)contentType {
+    [self.request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+}
+
 - (SMTargetAction *)targetActionForTarget:(id)target action:(SEL)action {
     for(SMTargetAction *ta in targetActions)
         if (ta->target == target && (ta->action == action || !action))
