@@ -103,6 +103,10 @@ NSString *const SMErrorResponseKey = @"response";
 
 #pragma mark Target/Action management
 
+- (void)setHTTPMethod:(NSString *)method {
+    [self.request setHTTPMethod:method];
+}
+
 - (SMTargetAction *)targetActionForTarget:(id)target action:(SEL)action {
     for(SMTargetAction *ta in targetActions)
         if (ta->target == target && (ta->action == action || !action))
