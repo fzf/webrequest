@@ -26,7 +26,7 @@ NSString *const SMErrorResponseKey = @"response";
 @property (nonatomic, retain) id context;
 @property (nonatomic, retain) NSMutableArray *targetActions;
 @property (nonatomic, retain) NSMutableData *data;
-@property (nonatomic, retain) NSURLRequest *request;
+@property (nonatomic, retain) NSMutableURLRequest *request;
 @property (nonatomic, retain) NSURLResponse *response;
 @property (nonatomic, retain) NSURLConnection *connection;
 @end
@@ -34,7 +34,7 @@ NSString *const SMErrorResponseKey = @"response";
 @implementation SMWebRequest
 @synthesize context, targetActions, delegate, data, request, response, connection;
 
-- (id)initWithURLRequest:(NSURLRequest *)theRequest delegate:(id<SMWebRequestDelegate>)theDelegate context:(id)theContext {
+- (id)initWithURLRequest:(NSMutableURLRequest *)theRequest delegate:(id<SMWebRequestDelegate>)theDelegate context:(id)theContext {
     self = [super init];
     if (self) {
         self.request = theRequest;
@@ -63,10 +63,10 @@ NSString *const SMErrorResponseKey = @"response";
 }
 
 + (SMWebRequest *)requestWithURL:(NSURL *)theURL delegate:(id<SMWebRequestDelegate>)theDelegate context:(id)theContext {
-    return [SMWebRequest requestWithURLRequest:[NSURLRequest requestWithURL:theURL] delegate:theDelegate context:theContext];
+    return [SMWebRequest requestWithURLRequest:[NSMutableURLRequest requestWithURL:theURL] delegate:theDelegate context:theContext];
 }
 
-+ (SMWebRequest *)requestWithURLRequest:(NSURLRequest *)theRequest delegate:(id<SMWebRequestDelegate>)theDelegate context:(id)theContext {
++ (SMWebRequest *)requestWithURLRequest:(NSMutableURLRequest *)theRequest delegate:(id<SMWebRequestDelegate>)theDelegate context:(id)theContext {
     return [[[SMWebRequest alloc] initWithURLRequest:theRequest delegate:theDelegate context:theContext] autorelease];
 }
 
@@ -217,7 +217,7 @@ NSString *const SMErrorResponseKey = @"response";
 
 #pragma mark NSURLConnection delegate methods
 
-- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)newRequest redirectResponse:(NSURLResponse *)redirectResponse {
+- (NSMutableURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSMutableURLRequest *)newRequest redirectResponse:(NSURLResponse *)redirectResponse {
     if (redirectResponse && [(NSHTTPURLResponse *)redirectResponse statusCode] != 301)
         requestFlags.wasTemporarilyRedirected = YES;
     

@@ -56,7 +56,7 @@ typedef NSUInteger SMWebRequestEvents;
     
     NSMutableArray *targetActions;
     NSURLConnection *connection;
-    NSURLRequest *request;
+    NSMutableURLRequest *request;
     NSURLResponse *response;
     NSMutableData *data;
     struct {
@@ -69,16 +69,16 @@ typedef NSUInteger SMWebRequestEvents;
 @property (nonatomic, readonly) BOOL started;
 @property (nonatomic, readonly, retain) id context;
 
-@property (nonatomic, readonly, retain) NSURLRequest *request;
+@property (nonatomic, readonly, retain) NSMutableURLRequest *request;
 @property (nonatomic, readonly, retain) NSURLResponse *response;
 
 // Designated initializer.
-- (id)initWithURLRequest:(NSURLRequest *)request delegate:(id<SMWebRequestDelegate>)delegate context:(id)context;
+- (id)initWithURLRequest:(NSMutableURLRequest *)request delegate:(id<SMWebRequestDelegate>)delegate context:(id)context;
 
 // Convenience creators.
 + (SMWebRequest *)requestWithURL:(NSURL *)url;
 + (SMWebRequest *)requestWithURL:(NSURL *)url delegate:(id<SMWebRequestDelegate>)delegate context:(id)context;
-+ (SMWebRequest *)requestWithURLRequest:(NSURLRequest *)request delegate:(id<SMWebRequestDelegate>)delegate context:(id)context;
++ (SMWebRequest *)requestWithURLRequest:(NSMutableURLRequest *)request delegate:(id<SMWebRequestDelegate>)delegate context:(id)context;
 
 - (void)start;
 - (void)cancel;
@@ -98,7 +98,7 @@ typedef NSUInteger SMWebRequestEvents;
 @optional
 
 // called on the main thread if applicable, behaves just like NSURLConnection.
-- (NSURLRequest *)webRequest:(SMWebRequest *)webRequest willSendRequest:(NSURLRequest *)newRequest redirectResponse:(NSURLResponse *)redirectResponse;
+- (NSMutableURLRequest *)webRequest:(SMWebRequest *)webRequest willSendRequest:(NSMutableURLRequest *)newRequest redirectResponse:(NSURLResponse *)redirectResponse;
 
 // called on a background thread and result will be passed to the targets, 
 // otherwise if the delegate is nil the data will be passed to the targets.

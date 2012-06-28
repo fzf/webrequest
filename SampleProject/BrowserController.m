@@ -60,7 +60,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [webView loadRequest:[NSURLRequest requestWithURL:url]];
+    [webView loadRequest:[NSMutableURLRequest requestWithURL:url]];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [self adjustTitleForOrientation:self.interfaceOrientation];
     [super viewWillAppear:animated];
